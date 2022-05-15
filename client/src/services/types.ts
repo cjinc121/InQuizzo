@@ -20,12 +20,8 @@ export type Children = { children: React.ReactElement };
 
 export type QuizInitialState = {
   quizzes: Quiz[];
-  currentQuizScore: number;
+  presentScore: number;
   optionSelected: Option[] | [];
-  userAnswer: {
-    right: number;
-    wrong: number;
-  };
   showAnswer: boolean;
   timer: number;
   instructionModal: boolean;
@@ -35,12 +31,10 @@ export type QuizInitialState = {
 export type QuizAction =
   | { type: "RESET" }
   | {
-      type: "CURRENT_QUIZ_SCORE";
-      payload: { question: Question; option: Option };
+      type: "PRESENT_SCORE";
+      payload: number;
     }
-  | { type: "SELECTED_OPTION"; payload: Option }
-  | { type: "CLEAR_OPTIONS" }
-  | { type: "RIGHT_WRONG" }
+  | { type: "OPTION_SELECTED"; payload: { questionNo: number; option: Option } }
   | { type: "SHOW_ANSWER"; payload: boolean }
   | { type: "SET_TIMER"; payload: number }
   | { type: "LOAD_QUIZ"; payload: [] }
