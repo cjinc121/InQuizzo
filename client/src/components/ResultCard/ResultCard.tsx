@@ -1,6 +1,6 @@
 import "./ResultCard.css";
 import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useQuiz } from "../../context/quizcontext";
 export const ResultCard = ({
   score,

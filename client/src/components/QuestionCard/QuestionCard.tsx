@@ -27,15 +27,6 @@ export const QuestionCard = ({
     if (n < 4) return (n += 1);
     return "result";
   }
-  function QuizScore(
-    presentScore: number,
-    question: Question,
-    optionSelected: Option
-  ): number {
-    return optionSelected.isRight
-      ? presentScore + question.points
-      : presentScore;
-  }
   function buttonColor(showAnswer: boolean, option: Option) {
     if (showAnswer) {
       if (option.isRight) return { backgroundColor: "lightgreen" };
