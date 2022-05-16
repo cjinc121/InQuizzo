@@ -1,6 +1,6 @@
 import { RiTimerFlashLine } from "react-icons/ri";
 import "./QuestionCard.css";
-import { GrLinkNext } from "react-icons/gr";
+import { FcNext } from "react-icons/fc";
 import { AiTwotoneHome } from "react-icons/ai";
 import { VscDebugRestart } from "react-icons/vsc";
 import { useEffect, useState } from "react";
@@ -18,13 +18,16 @@ export const QuestionCard = ({
   const { quizState, quizDispatch } = useQuiz();
   const { quizzes } = quizState;
   const [selected, setSelected] = useState("");
+  const [optionselected, setOptionselected] = useState(false);
   const quizData: Question[] = quizzes.find(
     (quiz: Quiz) => quiz.quizName === quizName
   )!.questions;
   const result = quizData[questionNumber];
   const navigate = useNavigate();
   function increaseQuestionNumber(n: number): number | string {
-    if (n < 4) return (n += 1);
+    if (n < 4) {
+      return (n += 1);
+    }
     return "result";
   }
   function buttonColor(showAnswer: boolean, option: Option) {
@@ -37,21 +40,29 @@ export const QuestionCard = ({
   useEffect(() => {
     quizDispatch({ type: "SHOW_ANSWER", payload: false });
     if (questionNumber < 5) quizDispatch({ type: "SET_TIMER", payload: 10 });
+    setOptionselected(false);
   }, [questionNumber, quizDispatch]);
+
   useEffect(() => {
     let timeout: NodeJS.Timeout;
-    if (quizState.timer > 0) {
-      timeout = setTimeout(
-        () => quizDispatch({ type: "SET_TIMER", payload: quizState.timer - 1 }),
-        1000
-      );
-    } else {
-      navigate(`/quiz/${quizName}/${increaseQuestionNumber(questionNumber)}`);
+    if (!optionselected) {
+      if (quizState.timer > 0) {
+        timeout = setTimeout(
+          () =>
+            quizDispatch({ type: "SET_TIMER", payload: quizState.timer - 1 }),
+          1000
+        );
+      } else {
+        quizDispatch({ type: "SET_TIMER", payload: 10 });
+        navigate(`/quiz/${quizName}/${increaseQuestionNumber(questionNumber)}`);
+      }
     }
+
     return () => {
       clearTimeout(timeout);
     };
-  }, [quizState.timer, navigate, questionNumber, quizDispatch]);
+  }, [quizState.timer, navigate, questionNumber, quizName, quizDispatch]);
+
   return (
     <div className="question-container">
       <div className="utility-icons">
@@ -74,7 +85,8 @@ export const QuestionCard = ({
               navigate(`/`);
             }}
           />
-          <GrLinkNext
+          <FcNext
+            className="next-icon"
             onClick={() =>
               navigate(
                 `/quiz/${quizName}/${increaseQuestionNumber(questionNumber)}`
@@ -96,12 +108,15 @@ export const QuestionCard = ({
                   : {}
               }
               onClick={() => {
-                setSelected(option.value);
-                quizDispatch({
-                  type: "OPTION_SELECTED",
-                  payload: { questionNo: questionNumber, option: option },
-                });
-                quizDispatch({ type: "SHOW_ANSWER", payload: true });
+                if (!optionselected) {
+                  setSelected(option.value);
+                  quizDispatch({
+                    type: "OPTION_SELECTED",
+                    payload: { questionNo: questionNumber, option: option },
+                  });
+                  quizDispatch({ type: "SHOW_ANSWER", payload: true });
+                  setOptionselected(true);
+                }
               }}
             >
               {option.value}
