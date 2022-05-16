@@ -4,8 +4,8 @@ import { useQuiz } from "../../context/quizcontext";
 import "./InstructionModal.css";
 
 export default function InstructionModal() {
-  const { quizDispatch } = useQuiz();
-  const navigate=useNavigate()
+  const { quizState, quizDispatch } = useQuiz();
+  const navigate = useNavigate();
   return (
     <div
       className="modal-page"
@@ -14,9 +14,7 @@ export default function InstructionModal() {
       <div className="modal-box" onClick={(e) => e.stopPropagation()}>
         <div className="header">
           Rules
-          <span
-            onClick={() => quizDispatch({ type: "INSTRUCTION_MODAL" })}
-          >
+          <span onClick={() => quizDispatch({ type: "INSTRUCTION_MODAL" })}>
             <AiOutlineClose />
           </span>
         </div>
@@ -31,17 +29,17 @@ export default function InstructionModal() {
             Poistive Points: <span>5 Points</span>
           </h4>
           <h4>
-            Total Points: <span>12 Points</span>
+            Total Points: <span>25 Points</span>
           </h4>
           <h4>
             Difficulty: <span>Medium</span>
           </h4>
-          <h4>There is no negative points</h4>
+          <h5>There is no negative points</h5>
         </div>
         <button
           onClick={() => {
             quizDispatch({ type: "INSTRUCTION_MODAL" });
-             navigate("/question");
+            navigate(quizState.quizToPlay);
           }}
         >
           Start Quiz

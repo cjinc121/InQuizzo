@@ -21,6 +21,7 @@ min-height: 100vh;}
   transform: scale(1.05);
 }
 .category-image>img{
+  height: 20rem;
   border-radius: 1rem;
 }
 .category-info>h4{
