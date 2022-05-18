@@ -87,11 +87,12 @@ export const QuestionCard = ({
           />
           <FcNext
             className="next-icon"
-            onClick={() =>
+            onClick={() => {
+              quizDispatch({ type: "SHOW_ANSWER", payload: false });
               navigate(
                 `/quiz/${quizName}/${increaseQuestionNumber(questionNumber)}`
-              )
-            }
+              );
+            }}
           />
         </div>
       </div>
@@ -104,7 +105,8 @@ export const QuestionCard = ({
               key={option.value}
               className="option"
               style={
-                option.isRight || option.value === selected
+                optionselected &&
+                (option.isRight === true || option.value === selected)
                   ? buttonColor(quizState.showAnswer, option)
                   : {}
               }
