@@ -2,6 +2,7 @@ import "./ResultCard.css";
 import { AiOutlineClose, AiOutlineCheck } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useQuiz } from "../../context/quizcontext";
+
 export const ResultCard = ({
   score,
   right,
@@ -13,6 +14,7 @@ export const ResultCard = ({
 }) => {
   const { quizDispatch } = useQuiz();
   const navigate = useNavigate();
+
   return (
     <div className="result">
       <div className="score">

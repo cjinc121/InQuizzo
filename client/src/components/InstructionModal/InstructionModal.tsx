@@ -1,11 +1,13 @@
 import { AiOutlineClose } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/authcontext";
 import { useQuiz } from "../../context/quizcontext";
 import "./InstructionModal.css";
 
 export default function InstructionModal() {
   const { quizState, quizDispatch } = useQuiz();
   const navigate = useNavigate();
+  const { authState } = useAuth();
   return (
     <div
       className="modal-page"
@@ -35,6 +37,7 @@ export default function InstructionModal() {
             Difficulty: <span>Medium</span>
           </h4>
           <h5>There is no negative points</h5>
+          {authState.userId === "" && <h5>Login to be on Leaderboard</h5>}
         </div>
         <button
           onClick={() => {
