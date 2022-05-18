@@ -45,3 +45,29 @@ export type QuizContextType = {
   quizState: QuizInitialState;
   quizDispatch: (action: QuizAction) => void;
 };
+export type userType = {
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+  score: number;
+};
+export type AuthInitialStateType = {
+  userId: string | null;
+  userName: string;
+  score: number;
+};
+
+export type AuthActionType =
+  | { type: "CREATE_SESSION"; payload: userType }
+  | { type: "START_SESSION"; payload: userType }
+  | { type: "END_SESSION" }
+  | { type: "UPDATE_SCORE"; payload: number };
+
+export type AuthContextType = {
+  authState: AuthInitialStateType;
+  authDispatch: (action: AuthActionType) => void;
+  loginHandler: (email: string, password: string) => void;
+  signupHandler: (name: string, email: string, password: string) => void;
+  signoutHandler: () => void;
+};

@@ -1,0 +1,48 @@
+.leaderboard-container{
+  display:flex ;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  color: var(--white-color);
+  margin-top: 10%;
+}
+.leaderboard-list{
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  width: 50%;
+  background-color: var(--black-color);
+justify-content: space-between;
+transition: all 0.5s ease;
+
+}
+.leaderboard-list:hover{
+  transform: scale(1.05);
+}
+.leaderboard-list>h3{
+  font-weight: 300;
+  padding-left:5rem ;
+}
+.leaderboard-list>h4{
+  font-weight: 200;
+  font-size: 1rem;
+  padding-right: 5rem;
+}
+.leaderboard-heading{
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  width: 50%;
+  background-color: var(--black-color);
+justify-content: space-between;
+padding:  1rem 5.5rem ;
+}
+@media screen and (max-width: 768px){
+.leaderboard-list{
+  width: 90%;
+}
+.leaderboard-heading{
+  width: 90%;
+}
+}

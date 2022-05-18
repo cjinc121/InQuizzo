@@ -45,19 +45,18 @@ export const QuestionCard = ({
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
-    if (!optionselected) {
-      if (quizState.timer > 0) {
+    if (quizState.timer > 0) {
+      if (!optionselected) {
         timeout = setTimeout(
           () =>
             quizDispatch({ type: "SET_TIMER", payload: quizState.timer - 1 }),
           1000
         );
-      } else {
-        quizDispatch({ type: "SET_TIMER", payload: 10 });
-        navigate(`/quiz/${quizName}/${increaseQuestionNumber(questionNumber)}`);
       }
+    } else {
+      quizDispatch({ type: "SET_TIMER", payload: 10 });
+      navigate(`/quiz/${quizName}/${increaseQuestionNumber(questionNumber)}`);
     }
-
     return () => {
       clearTimeout(timeout);
     };
@@ -74,6 +73,7 @@ export const QuestionCard = ({
         <div className="icon">
           <VscDebugRestart
             onClick={() => {
+              setOptionselected(false);
               quizDispatch({ type: "RESET" });
               quizDispatch({ type: "SHOW_ANSWER", payload: false });
               navigate(`/quiz/${quizName}/${0}`);
@@ -101,6 +101,7 @@ export const QuestionCard = ({
         {result.options.map((option) => {
           return (
             <div
+              key={option.value}
               className="option"
               style={
                 option.isRight || option.value === selected
