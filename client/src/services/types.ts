@@ -21,11 +21,12 @@ export type Children = { children: React.ReactElement };
 export type QuizInitialState = {
   quizzes: Quiz[];
   presentScore: number;
-  optionSelected: Option[] | [];
+  optionSelected: Option[];
   showAnswer: boolean;
   timer: number;
   instructionModal: boolean;
   quizToPlay: string;
+  questions: Question[];
 };
 
 export type QuizAction =
@@ -39,7 +40,8 @@ export type QuizAction =
   | { type: "SET_TIMER"; payload: number }
   | { type: "LOAD_QUIZ"; payload: [] }
   | { type: "INSTRUCTION_MODAL" }
-  | { type: "QUIZ_TO_PLAY"; payload: string };
+  | { type: "QUIZ_TO_PLAY"; payload: string }
+  | { type: "LOAD_QUESTION"; payload: Question[] };
 
 export type QuizContextType = {
   quizState: QuizInitialState;

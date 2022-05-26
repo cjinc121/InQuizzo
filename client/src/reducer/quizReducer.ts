@@ -3,17 +3,20 @@ import { QuizAction, QuizInitialState } from "../services/types";
 const quizInitialState: QuizInitialState = {
   quizzes: [],
   presentScore: 0,
-  optionSelected: [],
+  optionSelected: JSON.parse(localStorage.getItem("selectedOption")!) || [],
   showAnswer: false,
   timer: 10,
   instructionModal: false,
   quizToPlay: "",
+  questions: [],
 };
 const quizReducer = (
   state: QuizInitialState,
   action: QuizAction
 ): QuizInitialState => {
   switch (action.type) {
+    case "LOAD_QUESTION":
+      return { ...state, questions: action.payload };
     case "INSTRUCTION_MODAL":
       return { ...state, instructionModal: !state.instructionModal };
     case "LOAD_QUIZ":

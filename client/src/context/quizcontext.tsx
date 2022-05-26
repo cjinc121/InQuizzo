@@ -15,6 +15,14 @@ export const QuizContextProvider = ({ children }: Children) => {
       if (success) quizDispatch({ type: "LOAD_QUIZ", payload: quiz });
     })();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "selectedOption",
+      JSON.stringify(quizState.optionSelected)
+    );
+  }, [quizState.optionSelected]);
+
   return (
     <QuizContext.Provider value={{ quizState, quizDispatch }}>
       {children}
